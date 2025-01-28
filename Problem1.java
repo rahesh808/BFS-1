@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+Using BFS
 Time COmplexity -> O(N)
 Space COmplexity -> O(N)
 */
@@ -31,5 +32,40 @@ class Solution1 {
         result.add(ans);
         }
         return result;
+    }
+}
+
+/*
+Using DFS 
+Time COmplexity -> O(N)
+Space COmplexity -> O(H)
+*/
+
+
+class Solution2 {
+    List<List<Integer>> result;
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        result = new ArrayList<>();
+        dfs(root, 0);
+        return result;
+    }
+
+    private void dfs(TreeNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (result.size() == level) {
+            List<Integer> ans = new ArrayList<>();
+            ans.add(root.val);
+            result.add(ans);
+        } else {
+            result.get(level).add(root.val);
+        }
+        dfs(root.left, level + 1);
+        dfs(root.right, level + 1);
     }
 }
